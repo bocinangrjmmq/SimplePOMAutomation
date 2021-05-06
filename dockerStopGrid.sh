@@ -1,0 +1,1 @@
+docker-compose -f dockerCompose.yaml down>>dockerStopGrid.txt

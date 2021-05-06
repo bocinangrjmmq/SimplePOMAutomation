@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="basePath">./logs</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] [%c{1}] - %msg%n"/>
+		</Console>
+		<Routing name="File">
+			<Routes pattern="${ctx:contextKey}">
+				<!-- Nota las areas de before test y after test estan acomodadas con el nombre hardcode del metodo y van a crear un log aparte -->
+				<Route>				
+					<!-- Esta configuracion ayuda a crear logs en paralelo ya que usa el nombre de los metodos para crearlos-->
+					<RollingFile 
+						name="test-${ctx:contextKey}"
+						fileName="${basePath}/${date:yyyy-MM-dd}/Test-${ctx:contextKey}-${date:yyyy-MM-dd-HH-mm-ss}.log"
+						
+						filePattern="${basePath}/Test-${ctx:contextKey}-%d{MM-dd-yyyy}.log">
+						<PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] [%c{1}] - %msg%n"/>
+						<Policies>
+							<TimeBasedTriggeringPolicy interval="1"
+								modulate="true" />
+							<SizeBasedTriggeringPolicy
+								size="10000 KB" />
+							<OnStartupTriggeringPolicy />
+						</Policies>
+					</RollingFile>
+				</Route>
+
+				<!-- Esta configuracion es para cuando no tiene context y solo lo va a desplegar en la consola -->
+				<Route ref="Console" key="${ctx:contextKey}" />
+			</Routes>
+
+		</Routing>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="File" />
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

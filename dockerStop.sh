@@ -1,0 +1,1 @@
+docker stop test_chrome>>dockerStop.txt

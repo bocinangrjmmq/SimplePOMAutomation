@@ -1,0 +1,1 @@
+docker rm test_chrome>>dockerRemove.txt

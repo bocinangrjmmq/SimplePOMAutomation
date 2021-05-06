@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- runType => local=local machine / remote=docker -->
+<!-- NOTE: for dockerGrid, the thread-count & parallel must be enabled -->
+<suite name="AppName Suite" thread-count="4" parallel="tests"> 
+<!-- 
+	Defined in pom.xml 
+	<parameter name="runType" 	  value="grid" />
+	<parameter name="browser"     value="chrome" />
+	<parameter name="environment" value="test"  />
+-->
+
+	<test name="P1">
+		<parameter name="priority" value="Critical" />
+		<classes>
+			<class name="app.tsd.AppName_Critical_Suite">
+			<methods>
+				<!-- Include Critical Set -->
+			</methods>
+			</class>
+		</classes>
+	</test>	
+
+	<test name="P2">
+		<parameter name="priority" value="High" />
+		<classes>
+			<class name="app.tsd.AppName_High_Suite" >
+				<methods>
+					<!-- Include High Set -->
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+	<test name="P3">
+		<parameter name="priority" value="Medium" />
+		<classes>
+			<class name="app.tsd.AppName_Medium_Suite">
+				<methods>
+					<!-- Include Medium Set -->
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="P4">
+		<parameter name="priority" value="Low" />
+		<classes>
+			<class name="app.tsd.AppName_Low_Suite">
+			<methods>
+				<include name="TC01_StepRunner" />
+			</methods>
+			</class>
+		</classes>
+	</test>
+
+</suite> 
